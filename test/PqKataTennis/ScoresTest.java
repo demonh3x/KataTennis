@@ -44,12 +44,12 @@ public class ScoresTest {
         Scores s = new Scores();
         
         for (int i = 0; i < 3; i++) {
-            assertEquals(null, s.getAdvantage());
+            assertEquals(false, s.isDeuce());
             assertEquals(true, s.score(0));
-            assertEquals(null, s.getAdvantage());
+            assertEquals(false, s.isDeuce());
             assertEquals(true, s.score(1));
         }
-        assertEquals(new Integer(-1), s.getAdvantage());
+        assertEquals(true, s.isDeuce());
     }
     
     @Test
@@ -63,7 +63,7 @@ public class ScoresTest {
         assertEquals(true, s.score(0));
         assertEquals(new Integer(0), s.getAdvantage());
         assertEquals(true, s.score(1));
-        assertEquals(new Integer(-1), s.getAdvantage());
+        assertEquals(null, s.getAdvantage());
         assertEquals(true, s.score(1));
         assertEquals(new Integer(1), s.getAdvantage());
     }

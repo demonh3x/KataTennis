@@ -61,14 +61,14 @@ public class Scores{
             return (index == win) ? "Winner" : "Loser";
         }
         
+        if (isDeuce()){
+            return "Deuce";
+        }
+        
         Integer advantage = getAdvantage();
         if (advantage == null)
         {
             return Integer.toString(scores[index].getValue());
-        }
-        else if (advantage == -1) 
-        {
-            return "Deuce";
         }
         else 
         {
@@ -87,22 +87,26 @@ public class Scores{
     }
     
     /**
+     * Is it in Deuce state?
+     * @return 
+     * true if no score has advantage, false if one does.
+     */
+    public boolean isDeuce() {
+        return advantageSystem() && (advantageDifference() == 0);
+    }
+    
+    /**
      * Get the advantage info
      * @return 
-     * null if not in advantage system or a winner is set<br>
-     * -1 Deuce<br>
-     * 0..1 The advantaged score's index
+     * 0..1 The advantaged score's index<br>
+     * null if a winner is set, not in advantage system or in deuce state
      */
     public Integer getAdvantage() {
-        if ((getWinner() != null) || (!advantageSystem())) {
+        if (!advantageSystem() || isDeuce() || (getWinner() != null)) {
             return null;
         }
         
-        if (advantageDifference() > 0) {
-            return (advantages[0] > advantages[1]) ? 0 : 1;
-        } else {
-            return -1;
-        }
+        return (advantages[0] > advantages[1]) ? 0 : 1;
     }
     
     private boolean advantageSystem() {
