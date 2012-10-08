@@ -17,30 +17,28 @@ public class Scores{
      * Increments a score
      * @param index
      * The index of the score to increment (0 or 1)
-     * @return 
-     * true if able to increment the score, false otherwise<br>
-     * If the received index is null or an invalid value, false is returned
      */
-    public boolean score(Integer index) {
-        if ((!validIndex(index)) || (getWinner() != null)) {
-            return false;
+    public void score(int index) {
+        checkValidIndex(index);
+        
+        if ((getWinner() != null)) {
+            return;
         }
         
         if (advantageSystem()){
             advantages[index]++;
+            
             if (advantageDifference() >= 2){
                 winner = index;
             }
-            return true;
             
         } else {
             if (scores[index].isMax()) {
                 winner = index;
-                return true;
+            } else {
+                scores[index].increment();
             }
         }
-        
-        return scores[index].increment();
     }
     
     /**
@@ -49,12 +47,9 @@ public class Scores{
      * The index of the score to get (0 or 1)
      * @return 
      * A text containing the score<br>
-     * If the received index is null or an invalid value, null is returned
      */
-    public String getScore(Integer index) {
-        if (!validIndex(index)){
-            return null;
-        }
+    public String getScore(int index) {
+        checkValidIndex(index);
         
         Integer win = getWinner();
         if (win != null) {
@@ -117,15 +112,9 @@ public class Scores{
         return Math.abs(advantages[0] - advantages[1]);
     }
     
-    private boolean validIndex(Integer index) {
-        if (index == null) {
-            return false;
-        }
-        
-        if (index >= 0 && index <= 1) {
-            return true;
-        } else {
-            return false;
+    private void checkValidIndex(int index) {        
+        if (index < 0 || index > 1) {
+            throw new IllegalArgumentException("The index must be 0 or 1");
         }
     }
 }

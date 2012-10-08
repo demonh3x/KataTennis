@@ -40,11 +40,9 @@ public class Game {
      * Score a point for a player
      * @param player
      * The name of the player to score
-     * @return 
-     * true if able to add a point, false otherwise
      */
-    public boolean score(String player) {
-        return scores.score(getPlayerIndex(player));
+    public void score(String player) {
+        scores.score(getPlayerIndex(player).intValue());
     }
     
     /**
