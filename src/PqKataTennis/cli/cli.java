@@ -28,7 +28,7 @@ public class cli {
             Player scoringPlayer = askPlayer("Jugador que ha marcado (1/2):");
             g.score(scoringPlayer);
             
-            printScores(g);
+            System.out.println(g.getScores());
         }
     }
     
@@ -59,27 +59,5 @@ public class cli {
     
     private static boolean validPlayerAnswer(int playerNumber){
         return (playerNumber == 1 || playerNumber == 2);
-    }
-    
-    private static void printScores(Game game){
-        if (game.getWinner() != null){
-            System.out.println("Ganador: " + game.getWinner().getName());
-            return;
-        }
-        
-        if (game.advantageGame()){
-            if (game.getAdvantage() == null){
-                System.out.println("Iguales");
-            }else{
-                System.out.println("Ventaja: " + game.getAdvantage().getName());
-            }
-        }else{
-            printScore(game.getPlayerA());
-            printScore(game.getPlayerB());
-        }
-    }
-    
-    private static void printScore(Player player){
-        System.out.println("Puntuación de " + player.getName() + ": " + player.getScore().getValue());
     }
 }
