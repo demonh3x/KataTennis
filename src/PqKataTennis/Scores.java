@@ -12,13 +12,7 @@ public class Scores{
     private Score[] scores = {new Score(), new Score()};
     private Integer[] advantages = {new Integer(0), new Integer(0)};
     private Integer winner = null;
-    
-    public Scores() {
-        for (int i = 0; i < scores.length; i++) {
-            scores[i] = new Score();
-        }
-    }
-    
+
     /**
      * Increments a score
      * @param index
