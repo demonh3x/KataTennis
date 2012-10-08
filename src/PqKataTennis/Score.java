@@ -12,7 +12,7 @@ public class Score {
     private int scoreCounter = 0;
     private int[] scoreValues = {0, 15, 30, 40};
     
-    protected boolean increment(){        
+    protected boolean increment(){
         if (isMax()){
             return false;
         }
