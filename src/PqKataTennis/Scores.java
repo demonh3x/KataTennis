@@ -62,12 +62,12 @@ public class Scores{
             return null;
         }
         
-        if (index == getWinner()){
-            return "Winner";
+        Integer win = getWinner();
+        if (win != null) {
+            return (index == win) ? "Winner" : "Loser";
         }
         
         Integer advantage = getAdvantage();
-
         if (advantage == null)
         {
             return Integer.toString(scores[index].getValue());
