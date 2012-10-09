@@ -10,7 +10,7 @@ package PqKataTennis;
  */
 public class Game{ 
     private Score[] scores = {new Score(), new Score()};
-    private Integer[] advantages = {new Integer(0), new Integer(0)};
+    private int[] advantages = {0, 0};
     private Player winner = null;
 
     /**
