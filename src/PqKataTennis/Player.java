@@ -22,8 +22,13 @@ public enum Player {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        if (this.name == null) {
+            return "Player " + super.toString();
+        } else {
+            return this.name;
+        }
     }
     
     /**
@@ -36,7 +41,7 @@ public enum Player {
      */
     public static Player get(String name) {
         for (Player p : Player.values()) {
-            if (name.equals(p.getName()))
+            if (name.equals(p.toString()))
                 return p;
         }
         return null;

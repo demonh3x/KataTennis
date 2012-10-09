@@ -32,12 +32,12 @@ public class cli {
             printScores();
         } while (game.getWinner() == null);
         
-        System.out.println("The winner is: " + game.getWinner().getName());
+        System.out.println("The winner is: " + game.getWinner());
     }
     
     private static void printScores(){
-        String scores = Player.One.getName() + ": " + game.getScore(Player.One) + ", " +
-                Player.Two.getName() + ": " + game.getScore(Player.Two);
+        String scores = Player.One + ": " + game.getScore(Player.One) + ", " +
+                Player.Two + ": " + game.getScore(Player.Two);
 
         System.out.println(scores);
     }
@@ -47,8 +47,8 @@ public class cli {
         Player scorer;
         
         do {
-            name = ask("Who scores? (" + Player.One.getName() + "/" + 
-                                         Player.Two.getName() + "): ");
+            name = ask("Who scores? (" + Player.One + "/" + 
+                                         Player.Two + "): ");
             scorer = Player.get(name);
             
         } while (scorer == null);
