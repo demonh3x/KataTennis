@@ -13,17 +13,14 @@ public class Score {
     private int[] scoreValues = {0, 15, 30, 40};
     
     /**
-     * Increments the value
-     * @return 
-     * true if able to increment, false otherwise
+     * Increments the value if the value is not at the max
      */
-    public boolean increment(){
+    public void increment(){
         if (isMax()){
-            return false;
+            return;
         }
         
         scoreCounter++;
-        return true;
     }
     
     /**

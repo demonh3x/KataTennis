@@ -33,19 +33,19 @@ public class ScoreTest {
         assertEquals(0, instance.getValue());
         assertEquals(false, instance.isMax());
         
-        assertEquals(true, instance.increment());
+        instance.increment();
         assertEquals(15, instance.getValue());
         assertEquals(false, instance.isMax());
         
-        assertEquals(true, instance.increment());
+        instance.increment();
         assertEquals(30, instance.getValue());
         assertEquals(false, instance.isMax());
         
-        assertEquals(true, instance.increment());
+        instance.increment();
         assertEquals(40, instance.getValue());
         assertEquals(true, instance.isMax());
         
-        assertEquals(false, instance.increment());
+        instance.increment();
         assertEquals(40, instance.getValue());
         assertEquals(true, instance.isMax());
     }
