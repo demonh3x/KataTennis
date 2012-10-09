@@ -13,9 +13,9 @@ import org.junit.BeforeClass;
  *
  * @author demonh3x
  */
-public class ScoresTest {
+public class GameTest {
     
-    public ScoresTest() {
+    public GameTest() {
     }
 
     @BeforeClass
@@ -28,73 +28,73 @@ public class ScoresTest {
 
     @Test
     public void testPerfectWin() {
-        Scores s = new Scores();
+        Game s = new Game();
         
         for (int i = 0; i < 4; i++) {
             assertEquals(null, s.getWinner());
-            s.score(1);
+            s.score(Player.Two);
         }
-        assertEquals(new Integer(1), s.getWinner());
+        assertEquals(Player.Two, s.getWinner());
     }
     
     @Test
     public void testDeuce() {
-        Scores s = new Scores();
+        Game s = new Game();
         
         for (int i = 0; i < 3; i++) {
             assertEquals(false, s.isDeuce());
-            s.score(0);
+            s.score(Player.One);
             assertEquals(false, s.isDeuce());
-            s.score(1);
+            s.score(Player.Two);
         }
         assertEquals(true, s.isDeuce());
     }
     
     @Test
     public void testAdvantages() {
-        Scores s = new Scores();
+        Game s = new Game();
         
         for (int i = 0; i < 3; i++) {
-            s.score(0);
-            s.score(1);
+            s.score(Player.One);
+            s.score(Player.Two);
         }
-        s.score(0);
-        assertEquals(new Integer(0), s.getAdvantage());
-        s.score(1);
+        s.score(Player.One);
+        assertEquals(Player.One, s.getAdvantage());
+        s.score(Player.Two);
         assertEquals(null, s.getAdvantage());
-        s.score(1);
-        assertEquals(new Integer(1), s.getAdvantage());
+        s.score(Player.Two);
+        assertEquals(Player.Two, s.getAdvantage());
     }
     
     @Test
     public void testBackAndForthWin() {
-        Scores s = new Scores();
+        Game s = new Game();
         
         for (int i = 0; i < 40; i++) {
-            s.score(0);
-            s.score(1);
+            s.score(Player.One);
+            s.score(Player.Two);
         }
-        s.score(0);
-        s.score(0);
-        assertEquals(new Integer(0), s.getWinner());
+        s.score(Player.One);
+        s.score(Player.One);
+        assertEquals(Player.One, s.getWinner());
     }
     
     
     @Test
     public void testIllegalScoresWin() {
-        Scores s = new Scores();
+        Game s = new Game();
         
         for (int i = 0; i < 40; i++) {
-            s.score(0);
-            s.score(1);
+            s.score(Player.One);
+            s.score(Player.Two);
         }
         for (int i = 0; i < 3; i++) {
-            s.score(0);
+            s.score(Player.One);
         }
         for (int i = 0; i < 10; i++) {
-            s.score(1);
+            s.score(Player.Two);
         }
-        assertEquals(new Integer(0), s.getWinner());
+        assertEquals(Player.One, s.getWinner());
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package PqKataTennis.cli;
 
+import PqKataTennis.Player;
 import PqKataTennis.Game;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,17 +15,16 @@ import java.io.InputStreamReader;
  * @author demonh3x
  */
 public class cli {
-    private static String[] players = new String[2];
     private static Game game;
             
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {   
-        players[0] = ask("Player A's name: ");
-        players[1] = ask("Player B's name: ");
+    public static void main(String[] args) {  
+        Player.One.setName(ask("Player A's name: "));
+        Player.Two.setName(ask("Player B's name: "));
         
-        game = new Game(players[0], players[1]);
+        game = new Game();
         System.out.println("Game started!");
         
         do {
@@ -32,25 +32,26 @@ public class cli {
             printScores();
         } while (game.getWinner() == null);
         
-        System.out.println("The winner is: " + game.getWinner());
+        System.out.println("The winner is: " + game.getWinner().getName());
     }
     
     private static void printScores(){
-        String scores = players[0] + ": " + game.getScore(players[0]);
-        
-        for (int i = 1; i < players.length; i++) {
-            scores += ", " + players[i] + ": " + game.getScore(players[i]);
-        }
-        
+        String scores = Player.One.getName() + ": " + game.getScore(Player.One) + ", " +
+                Player.Two.getName() + ": " + game.getScore(Player.Two);
+
         System.out.println(scores);
     }
     
-    private static String askScorer(){
-        String scorer;
+    private static Player askScorer(){
+        String name;
+        Player scorer;
         
         do {
-            scorer = ask("Who scores? (" + players[0] + "/" + players[1] + "): ");
-        } while (!validName(scorer));
+            name = ask("Who scores? (" + Player.One.getName() + "/" + 
+                                         Player.Two.getName() + "): ");
+            scorer = Player.get(name);
+            
+        } while (scorer == null);
         
         return scorer;
     }
@@ -69,16 +70,6 @@ public class cli {
         } while (ret == null);
         
         return ret;
-    }
-    
-    private static boolean validName(String name){
-        for (int i = 0; i < players.length; i++) {
-            if (players[i].equals(name)){
-                return true;
-            }
-        }
-        
-        return false;
     }
 
 }

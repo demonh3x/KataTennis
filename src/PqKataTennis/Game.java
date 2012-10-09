@@ -8,51 +8,106 @@ package PqKataTennis;
  *
  * @author demonh3x
  */
-public class Game {
-    private Scores scores = new Scores();
-    private String[] names;
+public class Game{ 
+    private Score[] scores = {new Score(), new Score()};
+    private Integer[] advantages = {new Integer(0), new Integer(0)};
+    private Player winner = null;
 
-    public Game(String playerAName, String playerBName) {
-        this.names = new String[]{playerAName, playerBName};
-    }
-    
-    private Integer getPlayerIndex(String player) {
-        for (int i = 0; i < names.length; i++) {
-            if (names[i].equals(player)){
-                return i;
+    /**
+     * Increments a score
+     * @param scorer
+     * The player who scores
+     */
+    public void score(Player scorer) {        
+        if ((getWinner() != null)) {
+            return;
+        }
+        
+        if (advantageSystem()){
+            advantages[scorer.getIndex()]++;
+            
+            if (advantageDifference() >= 2){
+                winner = scorer;
+            }
+            
+        } else {
+            if (scores[scorer.getIndex()].isMax()) {
+                winner = scorer;
+            } else {
+                scores[scorer.getIndex()].increment();
             }
         }
-        return null;
     }
     
     /**
-     * Gets the player's score
+     * Get a score
      * @param player
      * The player to get his/her score
      * @return 
-     * A string containing the player's score
+     * A text containing the score
      */
-    public String getScore(String player){        
-        return scores.getScore(getPlayerIndex(player));
+    public String getScore(Player player) {       
+        Player win = getWinner();
+        if (win != null) {
+            return (player == win) ? "Winner" : "Loser";
+        }
+        
+        if (isDeuce()){
+            return "Deuce";
+        }
+        
+        Player advantage = getAdvantage();
+        if (advantage == null)
+        {
+            return Integer.toString(scores[player.getIndex()].getValue());
+        }
+        else 
+        {
+            return (player == advantage)? "Advantaged" : "Disadvantaged";
+        }
     }
     
     /**
-     * Score a point for a player
-     * @param player
-     * The name of the player to score
-     */
-    public void score(String player) {
-        scores.score(getPlayerIndex(player).intValue());
-    }
-    
-    /**
-     * Get the winner of the game
+     * Get the winner
      * @return 
-     * The name of the player<br>
-     * null if the game is not finished
+     * The winning player.<br>
+     * null if there is no winner yet.
      */
-    public String getWinner() {
-        Integer winner = scores.getWinner();
-        return (winner == null) ? null : names[winner];
+    public Player getWinner() {
+        return winner;
+    }
+    
+    /**
+     * Is it in Deuce state?
+     * @return 
+     * true if the scores are maxed out and even.
+     */
+    public boolean isDeuce() {
+        return advantageSystem() && (advantageDifference() == 0);
+    }
+    
+    /**
+     * Get the advantage info
+     * @return 
+     * The advantaged player<br>
+     * null if a winner is set, both scores aren't at max or in deuce state
+     */
+    public Player getAdvantage() {
+        if (!advantageSystem() || isDeuce() || (getWinner() != null)) {
+            return null;
+        }
+        
+        return (advantages[Player.One.getIndex()] > advantages[Player.Two.getIndex()]) ?
+                Player.One : Player.Two;
+    }
+    
+    private boolean advantageSystem() {
+        return scores[Player.One.getIndex()].isMax() && 
+               scores[Player.Two.getIndex()].isMax();
+    }
+    
+    private int advantageDifference() {
+        return Math.abs(advantages[Player.One.getIndex()] -
+                        advantages[Player.Two.getIndex()]);
     }
 }
