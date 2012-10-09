@@ -4,8 +4,8 @@
  */
 package PqKataTennis.cli;
 
-import PqKataTennis.Player;
 import PqKataTennis.Game;
+import PqKataTennis.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +23,7 @@ public class cli {
     public static void main(String[] args) {  
         Player.One.setName(ask("Player A's name: "));
         Player.Two.setName(ask("Player B's name: "));
-        
+
         game = new Game();
         System.out.println("Game started!");
         

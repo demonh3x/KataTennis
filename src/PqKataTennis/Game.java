@@ -24,17 +24,17 @@ public class Game{
         }
         
         if (advantageSystem()){
-            advantages[scorer.getIndex()]++;
+            advantages[scorer.ordinal()]++;
             
             if (advantageDifference() >= 2){
                 winner = scorer;
             }
             
         } else {
-            if (scores[scorer.getIndex()].isMax()) {
+            if (scores[scorer.ordinal()].isMax()) {
                 winner = scorer;
             } else {
-                scores[scorer.getIndex()].increment();
+                scores[scorer.ordinal()].increment();
             }
         }
     }
@@ -59,7 +59,7 @@ public class Game{
         Player advantage = getAdvantage();
         if (advantage == null)
         {
-            return Integer.toString(scores[player.getIndex()].getValue());
+            return Integer.toString(scores[player.ordinal()].getValue());
         }
         else 
         {
@@ -97,17 +97,17 @@ public class Game{
             return null;
         }
         
-        return (advantages[Player.One.getIndex()] > advantages[Player.Two.getIndex()]) ?
+        return (advantages[Player.One.ordinal()] > advantages[Player.Two.ordinal()]) ?
                 Player.One : Player.Two;
     }
     
     private boolean advantageSystem() {
-        return scores[Player.One.getIndex()].isMax() && 
-               scores[Player.Two.getIndex()].isMax();
+        return scores[Player.One.ordinal()].isMax() && 
+               scores[Player.Two.ordinal()].isMax();
     }
     
     private int advantageDifference() {
-        return Math.abs(advantages[Player.One.getIndex()] -
-                        advantages[Player.Two.getIndex()]);
+        return Math.abs(advantages[Player.One.ordinal()] -
+                        advantages[Player.Two.ordinal()]);
     }
 }

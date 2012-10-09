@@ -9,20 +9,11 @@ package PqKataTennis;
  * @author demonh3x
  */
 public enum Player {   
-    One (0),
-    Two (1);
+    One,
+    Two;
 
-    private int index;
     private String name;
-    
-    private Player(int index) {
-        this.index = index;
-    }
-    
-    public int getIndex() {
-        return this.index;
-    }
-    
+   
     public void setName(String name) {
         if (Player.get(name) != null){
             throw new IllegalArgumentException("A player exists with the name: " + name);
