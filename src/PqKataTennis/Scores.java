@@ -46,7 +46,7 @@ public class Scores{
      * @param index
      * The index of the score to get (0 or 1)
      * @return 
-     * A text containing the score<br>
+     * A text containing the score
      */
     public String getScore(int index) {
         checkValidIndex(index);
@@ -84,7 +84,7 @@ public class Scores{
     /**
      * Is it in Deuce state?
      * @return 
-     * true if no score has advantage, false if one does.
+     * true if the scores are maxed out and even.
      */
     public boolean isDeuce() {
         return advantageSystem() && (advantageDifference() == 0);
@@ -94,7 +94,7 @@ public class Scores{
      * Get the advantage info
      * @return 
      * 0..1 The advantaged score's index<br>
-     * null if a winner is set, not in advantage system or in deuce state
+     * null if a winner is set, both scores aren't at max or in deuce state
      */
     public Integer getAdvantage() {
         if (!advantageSystem() || isDeuce() || (getWinner() != null)) {
